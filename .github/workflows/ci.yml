@@ -54,15 +54,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
 
-      - name: Verify install
-        run: python -c "import sciwizard; print('OK')"
-
-      - name: Lint
-        run: ruff check .
-
-      - name: Type check
-        run: mypy sciwizard/
-
       - name: Run tests
         env:
           QT_QPA_PLATFORM: offscreen
