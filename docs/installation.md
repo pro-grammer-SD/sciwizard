@@ -17,7 +17,7 @@
 ## Install from source (recommended)
 
 ```bash
-git clone https://github.com/sciwizard/sciwizard.git
+git clone https://github.com/pro-grammer-SD/sciwizard.git
 cd sciwizard
 
 python -m venv .venv

@@ -28,7 +28,7 @@
 
 ```bash
 # Clone
-git clone https://github.com/sciwizard/sciwizard.git
+git clone https://github.com/pro-grammer-SD/sciwizard.git
 cd sciwizard
 
 # Create virtual environment

@@ -7,7 +7,7 @@ This mirrors [CONTRIBUTING.md](../CONTRIBUTING.md) with additional technical det
 ## Development setup
 
 ```bash
-git clone https://github.com/sciwizard/sciwizard.git
+git clone https://github.com/pro-grammer-SD/sciwizard.git
 cd sciwizard
 
 python -m venv .venv

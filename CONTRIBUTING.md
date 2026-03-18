@@ -7,7 +7,7 @@ Thanks for your interest. Here's how to contribute effectively.
 ## Setup
 
 ```bash
-git clone https://github.com/sciwizard/sciwizard.git
+git clone https://github.com/pro-grammer-SD/sciwizard.git
 cd sciwizard
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
