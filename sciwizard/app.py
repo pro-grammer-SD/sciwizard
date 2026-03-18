@@ -5,7 +5,6 @@ from __future__ import annotations
 import ctypes
 import logging
 import sys
-from pathlib import Path
 
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication

@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+import contextlib
 import logging
 import time
 from dataclasses import dataclass, field
-from typing import Any, Optional
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -22,15 +23,12 @@ from sklearn.linear_model import (
 )
 from sklearn.metrics import (
     accuracy_score,
-    confusion_matrix,
     f1_score,
     mean_absolute_error,
     mean_squared_error,
     precision_score,
     r2_score,
     recall_score,
-    roc_auc_score,
-    roc_curve,
 )
 from sklearn.model_selection import cross_val_score, train_test_split
 from sklearn.naive_bayes import GaussianNB
@@ -82,9 +80,9 @@ class TrainingResult:
     model_name: str
     task_type: str  # "classification" | "regression"
     pipeline: Pipeline
-    label_encoder: Optional[LabelEncoder]
+    label_encoder: LabelEncoder | None
     feature_names: list[str]
-    classes: Optional[list[Any]]
+    classes: list[Any] | None
 
     # Split
     X_train: pd.DataFrame = field(repr=False)
@@ -99,7 +97,7 @@ class TrainingResult:
     train_duration_s: float = 0.0
 
     # For ROC
-    y_prob: Optional[np.ndarray] = field(default=None, repr=False)
+    y_prob: np.ndarray | None = field(default=None, repr=False)
 
 
 @dataclass
@@ -152,7 +150,7 @@ class ModelTrainer:
         model_name: str,
         X: pd.DataFrame,
         y: pd.Series,
-        hyperparams: Optional[dict] = None,
+        hyperparams: dict | None = None,
     ) -> TrainingResult:
         """Train a single named model.
 
@@ -185,7 +183,7 @@ class ModelTrainer:
         self,
         X: pd.DataFrame,
         y: pd.Series,
-        progress_callback: Optional[Any] = None,
+        progress_callback: Any | None = None,
     ) -> list[AutoMLEntry]:
         """Try every model in the catalogue and return a sorted leaderboard.
 
@@ -245,7 +243,7 @@ class ModelTrainer:
 
     def _prepare_data(
         self, X: pd.DataFrame, y: pd.Series
-    ) -> tuple[pd.DataFrame, pd.Series, Optional[LabelEncoder]]:
+    ) -> tuple[pd.DataFrame, pd.Series, LabelEncoder | None]:
         """Encode categoricals in X and optionally encode y."""
         X = X.copy()
         le = None
@@ -301,10 +299,8 @@ class ModelTrainer:
                 classes = list(np.unique(y_train))
             metrics = self._classification_metrics(y_test, y_pred)
             if hasattr(pipeline, "predict_proba"):
-                try:
+                with contextlib.suppress(Exception):
                     y_prob = pipeline.predict_proba(X_test)
-                except Exception:
-                    pass
         else:
             metrics = self._regression_metrics(y_test, y_pred)
 

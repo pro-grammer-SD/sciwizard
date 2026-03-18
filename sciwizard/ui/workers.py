@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 import traceback
-from typing import Any, Callable, Optional
+from collections.abc import Callable
+from typing import Any
 
 from PySide6.QtCore import QObject, QRunnable, QThread, Signal, Slot
 
@@ -72,7 +73,7 @@ class LongWorker(QThread):
     error_signal = Signal(Exception, str)
     progress = Signal(int, int)
 
-    def __init__(self, parent: Optional[QObject] = None) -> None:
+    def __init__(self, parent: QObject | None = None) -> None:
         super().__init__(parent)
         self._result: Any = None
 

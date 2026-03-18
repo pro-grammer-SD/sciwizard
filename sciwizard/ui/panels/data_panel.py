@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+import contextlib
 import logging
-from typing import Optional
 
 import pandas as pd
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt, Signal
@@ -88,7 +88,7 @@ class DataPanel(QWidget):
 
     data_loaded = Signal(object)
 
-    def __init__(self, data_manager: DataManager, parent: Optional[QWidget] = None) -> None:
+    def __init__(self, data_manager: DataManager, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self._dm = data_manager
         self._build_ui()
@@ -248,10 +248,8 @@ class DataPanel(QWidget):
 
     def _on_target_changed(self, col: str) -> None:
         if col and self._dm.is_loaded:
-            try:
+            with contextlib.suppress(ValueError):
                 self._dm.target_column = col
-            except ValueError:
-                pass
 
     def _drop_missing(self) -> None:
         self._dm.drop_missing_rows()

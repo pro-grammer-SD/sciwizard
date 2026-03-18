@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
 
 import pandas as pd
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt, QThreadPool
@@ -100,7 +99,7 @@ class _GridResultModel(QAbstractTableModel):
 class HyperparamPanel(QWidget):
     """GridSearchCV hyperparameter tuning panel."""
 
-    def __init__(self, data_manager: DataManager, parent: Optional[QWidget] = None) -> None:
+    def __init__(self, data_manager: DataManager, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self._dm = data_manager
         self._pool = QThreadPool.globalInstance()
@@ -177,7 +176,6 @@ class HyperparamPanel(QWidget):
     # ------------------------------------------------------------------
 
     def _refresh_model_list(self) -> None:
-        from PySide6.QtWidgets import QComboBox
         task = self._task_combo.currentText().lower()
         catalogue = CLASSIFICATION_MODELS if task == "classification" else REGRESSION_MODELS
         self._model_combo.blockSignals(True)
@@ -221,9 +219,7 @@ class HyperparamPanel(QWidget):
         def _search():
             from sklearn.model_selection import GridSearchCV
             from sklearn.pipeline import Pipeline
-            from sklearn.preprocessing import StandardScaler
-            from sklearn.preprocessing import LabelEncoder
-            import numpy as np
+            from sklearn.preprocessing import LabelEncoder, StandardScaler
 
             Xp = X.copy()
             yp = y.copy()

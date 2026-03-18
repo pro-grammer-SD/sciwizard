@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
 
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt, Signal
 from PySide6.QtWidgets import (
@@ -84,7 +83,7 @@ class RegistryPanel(QWidget):
     model_loaded = Signal(object, dict)
 
     def __init__(
-        self, registry: ModelRegistry, parent: Optional[QWidget] = None
+        self, registry: ModelRegistry, parent: QWidget | None = None
     ) -> None:
         super().__init__(parent)
         self._registry = registry

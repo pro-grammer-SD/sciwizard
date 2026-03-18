@@ -3,12 +3,9 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
 
 from PySide6.QtWidgets import (
-    QCheckBox,
     QComboBox,
-    QFormLayout,
     QGroupBox,
     QHBoxLayout,
     QLabel,
@@ -22,7 +19,7 @@ from PySide6.QtWidgets import (
 )
 
 from sciwizard.core.data_manager import DataManager
-from sciwizard.ui.widgets.common import Divider, MutedLabel, PrimaryButton, SectionHeader
+from sciwizard.ui.widgets.common import Divider, MutedLabel, SectionHeader
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +27,7 @@ logger = logging.getLogger(__name__)
 class PreprocessingPanel(QWidget):
     """Interactive preprocessing configuration panel."""
 
-    def __init__(self, data_manager: DataManager, parent: Optional[QWidget] = None) -> None:
+    def __init__(self, data_manager: DataManager, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self._dm = data_manager
         self._build_ui()

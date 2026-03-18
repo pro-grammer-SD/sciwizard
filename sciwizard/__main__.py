@@ -1,7 +1,7 @@
 """Entry point: python -m sciwizard"""
 
-import sys
 import logging
+import sys
 
 from sciwizard.app import main
 

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-
 # Maps task type → ordered list of primary metric names
 CLASSIFICATION_METRIC_ORDER = ["Accuracy", "F1 Score", "Precision", "Recall"]
 REGRESSION_METRIC_ORDER = ["R²", "RMSE", "MAE"]

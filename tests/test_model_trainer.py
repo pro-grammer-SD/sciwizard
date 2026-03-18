@@ -2,13 +2,11 @@
 
 from __future__ import annotations
 
-import numpy as np
 import pandas as pd
 import pytest
 from sklearn.datasets import load_breast_cancer, load_diabetes
 
 from sciwizard.core.model_trainer import ModelTrainer, TrainingResult
-
 
 # ---------------------------------------------------------------------------
 # Fixtures

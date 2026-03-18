@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pandas as pd
 import pytest
 
+from sciwizard.utils.io import safe_read_csv, unique_filename
+from sciwizard.utils.metrics import format_metric, primary_metric, score_colour
 from sciwizard.utils.validation import (
     clamp,
     require_column,
@@ -12,10 +16,6 @@ from sciwizard.utils.validation import (
     require_numeric_columns,
     truncate_str,
 )
-from sciwizard.utils.metrics import format_metric, primary_metric, score_colour
-from sciwizard.utils.io import safe_read_csv, unique_filename
-from pathlib import Path
-
 
 # ---------------------------------------------------------------------------
 # validation.py

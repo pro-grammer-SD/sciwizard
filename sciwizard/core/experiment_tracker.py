@@ -6,7 +6,6 @@ import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
 
 from sciwizard.config import EXPERIMENT_LOG_PATH
 from sciwizard.core.model_trainer import TrainingResult
@@ -24,7 +23,7 @@ class ExperimentTracker:
         log_path: Override the default log file location.
     """
 
-    def __init__(self, log_path: Optional[Path] = None) -> None:
+    def __init__(self, log_path: Path | None = None) -> None:
         self._path = log_path or EXPERIMENT_LOG_PATH
         self._path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -32,7 +31,7 @@ class ExperimentTracker:
         self,
         result: TrainingResult,
         dataset_name: str = "unknown",
-        model_id: Optional[str] = None,
+        model_id: str | None = None,
         notes: str = "",
     ) -> None:
         """Append one experiment run to the log.

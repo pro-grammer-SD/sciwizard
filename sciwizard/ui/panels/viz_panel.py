@@ -3,18 +3,14 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
 
 import numpy as np
 import pandas as pd
 from PySide6.QtWidgets import (
     QComboBox,
-    QGroupBox,
     QHBoxLayout,
     QLabel,
     QMessageBox,
-    QPushButton,
-    QSplitter,
     QVBoxLayout,
     QWidget,
 )
@@ -29,7 +25,7 @@ logger = logging.getLogger(__name__)
 class VisualizationPanel(QWidget):
     """Interactive data visualization panel."""
 
-    def __init__(self, data_manager: DataManager, parent: Optional[QWidget] = None) -> None:
+    def __init__(self, data_manager: DataManager, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self._dm = data_manager
         self._build_ui()
@@ -150,7 +146,6 @@ class VisualizationPanel(QWidget):
         self._canvas.draw()
 
     def _heatmap(self, df: pd.DataFrame) -> None:
-        import matplotlib.pyplot as plt
 
         corr = df.corr(numeric_only=True)
         ax = self._canvas.get_ax()

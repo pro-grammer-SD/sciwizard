@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
 
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt, QThreadPool, Signal
 from PySide6.QtWidgets import (
@@ -19,7 +18,7 @@ from PySide6.QtWidgets import (
 
 from sciwizard.core.data_manager import DataManager
 from sciwizard.core.model_trainer import AutoMLEntry, ModelTrainer
-from sciwizard.ui.widgets.common import Divider, PrimaryButton, SectionHeader, StatusBadge
+from sciwizard.ui.widgets.common import Divider, PrimaryButton, SectionHeader
 from sciwizard.ui.workers import Worker
 
 logger = logging.getLogger(__name__)
@@ -75,7 +74,7 @@ class AutoMLPanel(QWidget):
 
     best_model_selected = Signal(str)
 
-    def __init__(self, data_manager: DataManager, parent: Optional[QWidget] = None) -> None:
+    def __init__(self, data_manager: DataManager, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self._dm = data_manager
         self._pool = QThreadPool.globalInstance()

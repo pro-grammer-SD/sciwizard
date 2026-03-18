@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
 
 from PySide6.QtCore import QThreadPool, Signal
 from PySide6.QtWidgets import (
@@ -13,13 +12,9 @@ from PySide6.QtWidgets import (
     QFormLayout,
     QGroupBox,
     QHBoxLayout,
-    QLabel,
     QMessageBox,
     QProgressBar,
-    QPushButton,
-    QScrollArea,
     QSpinBox,
-    QSplitter,
     QTextEdit,
     QVBoxLayout,
     QWidget,
@@ -54,15 +49,15 @@ class TrainingPanel(QWidget):
         data_manager: DataManager,
         registry: ModelRegistry,
         tracker: ExperimentTracker,
-        plugin_models: Optional[dict] = None,
-        parent: Optional[QWidget] = None,
+        plugin_models: dict | None = None,
+        parent: QWidget | None = None,
     ) -> None:
         super().__init__(parent)
         self._dm = data_manager
         self._registry = registry
         self._tracker = tracker
         self._plugin_models: dict = plugin_models or {}
-        self._last_result: Optional[TrainingResult] = None
+        self._last_result: TrainingResult | None = None
         self._pool = QThreadPool.globalInstance()
         self._build_ui()
 

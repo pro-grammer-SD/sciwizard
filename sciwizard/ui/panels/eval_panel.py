@@ -3,13 +3,11 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
 
 import numpy as np
 import pandas as pd
 from PySide6.QtWidgets import (
     QHBoxLayout,
-    QLabel,
     QTabWidget,
     QVBoxLayout,
     QWidget,
@@ -25,9 +23,9 @@ logger = logging.getLogger(__name__)
 class EvaluationPanel(QWidget):
     """Visualise model performance after training."""
 
-    def __init__(self, parent: Optional[QWidget] = None) -> None:
+    def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
-        self._result: Optional[TrainingResult] = None
+        self._result: TrainingResult | None = None
         self._build_ui()
 
     def _build_ui(self) -> None:
@@ -85,7 +83,7 @@ class EvaluationPanel(QWidget):
         for draw_fn in (self._draw_confusion_matrix, self._draw_roc, self._draw_cv):
             try:
                 draw_fn(result)
-            except Exception as exc:
+            except Exception:
                 logger.exception("Eval draw failed in %s", draw_fn.__name__)
 
     # ------------------------------------------------------------------
@@ -93,7 +91,7 @@ class EvaluationPanel(QWidget):
     # ------------------------------------------------------------------
 
     @staticmethod
-    def _to_numeric_labels(y: pd.Series) -> tuple[np.ndarray, Optional[list]]:
+    def _to_numeric_labels(y: pd.Series) -> tuple[np.ndarray, list | None]:
         """Coerce y to a numeric array, returning (array, classes_list_or_None).
 
         Works regardless of whether y is already int/float, or still contains
@@ -162,7 +160,7 @@ class EvaluationPanel(QWidget):
             return
 
         from sklearn.metrics import roc_auc_score, roc_curve
-        from sklearn.preprocessing import LabelEncoder, label_binarize
+        from sklearn.preprocessing import label_binarize
 
         y_prob = result.y_prob
 

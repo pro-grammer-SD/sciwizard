@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QFrame,
@@ -19,7 +17,7 @@ from PySide6.QtWidgets import (
 class SectionHeader(QLabel):
     """A styled section header label."""
 
-    def __init__(self, text: str, parent: Optional[QWidget] = None) -> None:
+    def __init__(self, text: str, parent: QWidget | None = None) -> None:
         super().__init__(text, parent)
         self.setObjectName("section_header")
         self.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
@@ -28,7 +26,7 @@ class SectionHeader(QLabel):
 class MutedLabel(QLabel):
     """A subdued secondary label."""
 
-    def __init__(self, text: str = "", parent: Optional[QWidget] = None) -> None:
+    def __init__(self, text: str = "", parent: QWidget | None = None) -> None:
         super().__init__(text, parent)
         self.setObjectName("muted")
         self.setWordWrap(True)
@@ -37,7 +35,7 @@ class MutedLabel(QLabel):
 class Divider(QFrame):
     """A horizontal rule divider."""
 
-    def __init__(self, parent: Optional[QWidget] = None) -> None:
+    def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self.setFrameShape(QFrame.Shape.HLine)
         self.setFrameShadow(QFrame.Shadow.Sunken)
@@ -47,7 +45,7 @@ class Divider(QFrame):
 class PrimaryButton(QPushButton):
     """A prominently styled action button."""
 
-    def __init__(self, text: str, parent: Optional[QWidget] = None) -> None:
+    def __init__(self, text: str, parent: QWidget | None = None) -> None:
         super().__init__(text, parent)
         self.setObjectName("primary_btn")
         self.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -67,7 +65,7 @@ class MetricCard(QFrame):
         name: str,
         value: float | str,
         color: str = "#7c6af7",
-        parent: Optional[QWidget] = None,
+        parent: QWidget | None = None,
     ) -> None:
         super().__init__(parent)
         self.setFrameShape(QFrame.Shape.StyledPanel)
@@ -94,7 +92,7 @@ class MetricCard(QFrame):
 
     @staticmethod
     def row(
-        metrics: dict[str, float], parent: Optional[QWidget] = None
+        metrics: dict[str, float], parent: QWidget | None = None
     ) -> QWidget:
         """Build a horizontal row of MetricCards from a metrics dict."""
         COLOURS = ["#7c6af7", "#63d4c4", "#a6e3a1", "#f9e2af", "#f38ba8"]
@@ -123,7 +121,7 @@ class StatusBadge(QLabel):
         self,
         text: str,
         status: str = "info",
-        parent: Optional[QWidget] = None,
+        parent: QWidget | None = None,
     ) -> None:
         super().__init__(text, parent)
         fg, bg = self._COLOURS.get(status, self._COLOURS["info"])

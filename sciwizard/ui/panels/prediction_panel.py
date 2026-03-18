@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
 
 import pandas as pd
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt, QThreadPool
@@ -61,11 +60,11 @@ class PredictionPanel(QWidget):
     def __init__(
         self,
         data_manager: DataManager,
-        parent: Optional[QWidget] = None,
+        parent: QWidget | None = None,
     ) -> None:
         super().__init__(parent)
         self._dm = data_manager
-        self._result: Optional[TrainingResult] = None
+        self._result: TrainingResult | None = None
         self._field_inputs: dict[str, QLineEdit] = {}
         self._pool = QThreadPool.globalInstance()
         self._build_ui()
@@ -129,7 +128,7 @@ class PredictionPanel(QWidget):
         self._batch_table.setAlternatingRowColors(True)
         batch_layout.addWidget(self._batch_table)
 
-        self._batch_df: Optional[pd.DataFrame] = None
+        self._batch_df: pd.DataFrame | None = None
         splitter.addWidget(batch_widget)
 
         root.addWidget(splitter, stretch=1)

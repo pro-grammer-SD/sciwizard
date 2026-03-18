@@ -4,9 +4,7 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
-from typing import Optional
 
-import numpy as np
 import pandas as pd
 
 logger = logging.getLogger(__name__)
@@ -20,10 +18,10 @@ class DataManager:
     """
 
     def __init__(self) -> None:
-        self._raw: Optional[pd.DataFrame] = None
-        self._processed: Optional[pd.DataFrame] = None
-        self._target_column: Optional[str] = None
-        self._file_path: Optional[Path] = None
+        self._raw: pd.DataFrame | None = None
+        self._processed: pd.DataFrame | None = None
+        self._target_column: str | None = None
+        self._file_path: Path | None = None
 
     # ------------------------------------------------------------------
     # Loading
@@ -55,17 +53,17 @@ class DataManager:
     # ------------------------------------------------------------------
 
     @property
-    def raw(self) -> Optional[pd.DataFrame]:
+    def raw(self) -> pd.DataFrame | None:
         """Original unmodified dataframe."""
         return self._raw
 
     @property
-    def data(self) -> Optional[pd.DataFrame]:
+    def data(self) -> pd.DataFrame | None:
         """Working (possibly preprocessed) dataframe."""
         return self._processed
 
     @property
-    def target_column(self) -> Optional[str]:
+    def target_column(self) -> str | None:
         return self._target_column
 
     @target_column.setter

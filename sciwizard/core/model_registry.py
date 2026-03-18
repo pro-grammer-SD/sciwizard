@@ -7,7 +7,7 @@ import logging
 import uuid
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 import joblib
 
@@ -27,7 +27,7 @@ class ModelRegistry:
             meta.json      — metadata (metrics, features, timestamps, …)
     """
 
-    def __init__(self, registry_dir: Optional[Path] = None) -> None:
+    def __init__(self, registry_dir: Path | None = None) -> None:
         self._dir = registry_dir or MODEL_REGISTRY_DIR
         self._dir.mkdir(parents=True, exist_ok=True)
 
@@ -35,7 +35,7 @@ class ModelRegistry:
     # Save
     # ------------------------------------------------------------------
 
-    def save(self, result: TrainingResult, alias: Optional[str] = None) -> str:
+    def save(self, result: TrainingResult, alias: str | None = None) -> str:
         """Persist a trained model and return its unique model_id.
 
         Args:
